@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
+import "./index.css"
 
 class AppComponent extends React.Component {
 
@@ -23,7 +24,7 @@ class AppComponent extends React.Component {
         return (
             <div>
                 <InputComponent onClick={(val) => this.updateTodo(val)} />
-                <ToDoComponent todoItems={this.state.todoItems} />
+                <ToDoComponent className="todoList" todoItems={this.state.todoItems} />
             </div>
         );
     }
@@ -46,10 +47,13 @@ class InputComponent extends React.Component {
 
     render() {
         return (
-            <div class="input-group">
-                <input value={this.state.value} onChange={this.handleChange} type="text" class="form-control"></input>
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" onClick={() => this.props.onClick(this.state.value)}>Add Todo Item</button>
+            <div className="input-group">
+                <input value={this.state.value} onChange={this.handleChange} type="text" className="form-control"></input>
+                <span className="input-group-btn">
+                    <button className="btn btn-default" type="button" onClick={() => {
+                        this.props.onClick(this.state.value);
+                        this.setState({ value: "" })
+                    }}>Add Todo Item</button>
                 </span>
             </div>
         );
@@ -59,11 +63,11 @@ class InputComponent extends React.Component {
 class ToDoComponent extends React.Component {
     render() {
         return (
-            <ul class="list-group">
+            <ul className="list-group todoList">
                 {
                     this.props.todoItems.map((item, i) => {
                         return (
-                            <li class="list-group-item" key={i}><ToDoItemComponent value={item} /></li>
+                            <li className="list-group-item" key={i}><ToDoItemComponent value={item} /></li>
                         );
                     })
                 }
@@ -75,10 +79,7 @@ class ToDoComponent extends React.Component {
 class ToDoItemComponent extends React.Component {
     render() {
         return (
-            <div>
-                <input type="checkbox"></input>{this.props.value}
-            </div>
-
+            <h6>{this.props.value}</h6>
         );
     }
 }
