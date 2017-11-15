@@ -12,6 +12,10 @@ class AppComponent extends React.Component {
     }
 
     updateTodo(value) {
+        if(value == ""){
+            return;
+        }
+
         var todoItems = this.state.todoItems.slice();
         todoItems.push(value);
 
